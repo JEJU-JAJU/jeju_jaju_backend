@@ -17,7 +17,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        ErrorResponse errorResponse = ErrorResponse.createErrorResponse(LOGIN_DATA_NOT_FOUND,request.getRequestURI());
+        ErrorResponse errorResponse = ErrorResponse.createErrorResponse(LOGIN_DATA_NOT_FOUND, request.getRequestURI());
         ObjectMapper objectMapper = new ObjectMapper();
         response.setCharacterEncoding("UTF-8");
         response.setContentType(String.valueOf(MediaType.APPLICATION_JSON));

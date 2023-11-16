@@ -1,6 +1,5 @@
 package com.jejujaju.security;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jejujaju.exception.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;

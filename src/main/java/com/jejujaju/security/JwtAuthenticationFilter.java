@@ -1,8 +1,6 @@
 package com.jejujaju.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jejujaju.refreshtoken.service.RefreshTokenService;
-import com.jejujaju.user.model.dto.JwtToken;
 import com.jejujaju.user.model.dto.User;
 import com.jejujaju.user.model.dto.UserAccessRequestDto;
 import lombok.RequiredArgsConstructor;
