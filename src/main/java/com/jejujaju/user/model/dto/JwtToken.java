@@ -1,4 +1,4 @@
-package com.jejujaju.config.jwt;
+package com.jejujaju.user.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

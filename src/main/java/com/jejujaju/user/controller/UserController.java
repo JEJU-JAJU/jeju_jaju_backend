@@ -1,6 +1,6 @@
 package com.jejujaju.user.controller;
 
-import com.jejujaju.config.jwt.JwtToken;
+import com.jejujaju.user.model.dto.JwtToken;
 import com.jejujaju.user.model.dto.User;
 import com.jejujaju.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +28,6 @@ public class UserController {
         try{
             Long userId = userService.join(user);
             return ResponseEntity.ok(userId);
-        } catch (Exception e){
-            return exceptionHandling(e);
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        try {
-            if(user.getLoginId() == null || user.getPassword() == null){
-                return new ResponseEntity<String>("아이디 또는 비밀번호를 입력해주세요.", HttpStatus.BAD_REQUEST);
-            }
-
-            JwtToken token = userService.login(user);
-            return ResponseEntity.ok(token);
         } catch (Exception e){
             return exceptionHandling(e);
         }
