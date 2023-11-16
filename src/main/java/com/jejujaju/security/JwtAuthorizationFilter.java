@@ -30,12 +30,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String token = null;
         // token 변환
         if (StringUtils.hasText(authorization) && authorization.contains("Bearer")) {
-            token = authorization.replace("Bearer","");
+            token = authorization.replace("Bearer ","");
             log.info("[JwtAuthorizationFilter] - 토큰변환 = {}",token);
         }
         // 토큰 검증
         if (token != null && jwtTokenProvider.validateToken(token) != null) {
-            String loginId = jwtTokenProvider.validateToken(token).getSubject();
+            String loginId = jwtTokenProvider.getUserLoginId(token);
             log.info("[JwtAuthorizationFilter] - 토큰검증-로그인아이디 = {}",loginId);
             SecurityContextHolder.getContext().setAuthentication(getAuthentication(loginId));
         }
