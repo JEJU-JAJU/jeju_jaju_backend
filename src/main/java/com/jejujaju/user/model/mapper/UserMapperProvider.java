@@ -53,6 +53,16 @@ public class UserMapperProvider {
         }.toString();
     }
 
+    public String updateUserPwd(){
+        return new SQL(){
+            {
+                UPDATE("user");
+                SET("password = #{password}");
+                WHERE("user_id = #{userId}");
+            }
+        }.toString();
+    }
+
     public String deleteUser(){
         return new SQL(){
             {

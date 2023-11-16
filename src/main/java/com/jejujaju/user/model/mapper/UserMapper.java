@@ -30,7 +30,10 @@ public interface UserMapper {
     User selectUserByLoginId(String loginId);
 
     @UpdateProvider(type = UserMapperProvider.class, method = "updateUser")
-    User updateUser(User user);
+    int updateUser(User user);
+
+    @UpdateProvider(type = UserMapperProvider.class, method = "updateUserPwd")
+    int updateUserPwd(Long userId, String password);
 
     @DeleteProvider(type = UserMapperProvider.class, method = "deleteUser")
     int deleteUser(Long userId);
