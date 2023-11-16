@@ -27,7 +27,6 @@ public class SecurityConfig {
 
     private final UserService userDetailsService;
     private final PasswordEncoder encoder;
-    private final RefreshTokenService refreshTokenService;
     private final JwtTokenProvider jwtTokenProvider;
 
     AuthenticationManager authenticationManager;
@@ -49,6 +48,7 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html/**", "/swagger-resources/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
