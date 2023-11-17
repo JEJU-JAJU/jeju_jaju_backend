@@ -1,7 +1,7 @@
 package com.jejujaju.plan.model.dto;
 
 import com.jejujaju.place.model.dto.PlaceResponseDto;
-import com.jejujaju.user.model.dto.User;
+import com.jejujaju.user.model.dto.UserBasicDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PlanResponseDto {
     private Long planId;
     private String title;
-    private User user;
+    private UserBasicDto user;
     private String description;
     private Long hit;
     private List<PlaceResponseDto> placeList;
