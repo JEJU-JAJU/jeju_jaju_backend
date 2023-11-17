@@ -5,8 +5,8 @@ import org.apache.ibatis.jdbc.SQL;
 
 public class UserMapperProvider {
 
-    public String insertUser(){
-        return new SQL(){
+    public String insertUser() {
+        return new SQL() {
             {
                 INSERT_INTO("user");
                 INTO_COLUMNS("login_id", "name", "password", "email", "phone");
@@ -15,8 +15,8 @@ public class UserMapperProvider {
         }.toString();
     }
 
-    public String selectUserByUserId(){
-        return new SQL(){
+    public String selectUserByUserId() {
+        return new SQL() {
             {
                 SELECT("*");
                 FROM("user");
@@ -25,8 +25,8 @@ public class UserMapperProvider {
         }.toString();
     }
 
-    public String selectUserByLoginId(){
-        return new SQL(){
+    public String selectUserByLoginId() {
+        return new SQL() {
             {
                 SELECT("*");
                 FROM("user");
@@ -35,17 +35,17 @@ public class UserMapperProvider {
         }.toString();
     }
 
-    public String updateUser(final User user){
-        return new SQL(){
+    public String updateUser(final User user) {
+        return new SQL() {
             {
                 UPDATE("user");
-                if(user.getName() != null){
+                if (user.getName() != null) {
                     SET("name = #{name}");
                 }
-                if(user.getEmail() != null){
+                if (user.getEmail() != null) {
                     SET("email = #{email}");
                 }
-                if(user.getPhone() != null){
+                if (user.getPhone() != null) {
                     SET("phone = #{phone}");
                 }
                 WHERE("user_id = #{userId}");
@@ -53,8 +53,8 @@ public class UserMapperProvider {
         }.toString();
     }
 
-    public String updateUserPwd(){
-        return new SQL(){
+    public String updateUserPwd() {
+        return new SQL() {
             {
                 UPDATE("user");
                 SET("password = #{password}");
@@ -63,8 +63,8 @@ public class UserMapperProvider {
         }.toString();
     }
 
-    public String deleteUser(){
-        return new SQL(){
+    public String deleteUser() {
+        return new SQL() {
             {
                 DELETE_FROM("user");
                 WHERE("user_id = #{userId}");
