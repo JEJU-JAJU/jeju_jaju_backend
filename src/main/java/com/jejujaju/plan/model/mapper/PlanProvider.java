@@ -15,6 +15,15 @@ public class PlanProvider {
         }.toString();
     }
 
+    public String selectAllPlan(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("plan");
+            }
+        }.toString();
+    }
+
     public String selectPlanByPlanId(){
         return new SQL(){
             {

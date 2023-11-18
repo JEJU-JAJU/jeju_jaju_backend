@@ -41,6 +41,12 @@ public class PlanController {
         return new ResponseEntity<PlanResponseDto>(plan, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<PlanResponseDto>> findAllPlan(){
+        List<PlanResponseDto> planList = planService.findAllPlan();
+        return new ResponseEntity<List<PlanResponseDto>>(planList, HttpStatus.OK);
+    }
+
     @PutMapping("/{plan-id}")
     public ResponseEntity<Void> updatePlan(@PathVariable("plan-id") Long planId, @RequestBody PlanRequestDto plan){
         PlanSaveDto newPlan = PlanSaveDto.builder()
