@@ -36,6 +36,11 @@ public class PlanServiceImpl implements PlanService{
     }
 
     @Override
+    public List<PlanResponseDto> findPlanByUserId(Long userId) {
+        return planMapper.selectPlanByUserId(userId);
+    }
+
+    @Override
     public List<PlanResponseDto> findAllPlan() {
         return planMapper.selectAllPlan();
     }

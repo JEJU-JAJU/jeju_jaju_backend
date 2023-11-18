@@ -34,6 +34,16 @@ public class PlanProvider {
         }.toString();
     }
 
+    public String selectPlanByUserId(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("plan");
+                WHERE("user_id = #{userId}");
+            }
+        }.toString();
+    }
+
     public String updatePlan(PlanSaveDto plan){
         return new SQL(){
             {

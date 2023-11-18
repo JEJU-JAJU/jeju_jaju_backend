@@ -29,6 +29,10 @@ public interface PlanMapper {
     PlanResponseDto selectPlanByPlanId(Long planId);
 
     @ResultMap("planMap")
+    @SelectProvider(type = PlanProvider.class, method = "selectPlanByUserId")
+    List<PlanResponseDto> selectPlanByUserId(Long userId);
+
+    @ResultMap("planMap")
     @SelectProvider(type = PlanProvider.class, method = "selectAllPlan")
     List<PlanResponseDto> selectAllPlan();
 
