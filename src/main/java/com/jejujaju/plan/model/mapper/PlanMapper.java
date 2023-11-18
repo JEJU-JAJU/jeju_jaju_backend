@@ -25,4 +25,13 @@ public interface PlanMapper {
     })
     @SelectProvider(type = PlanProvider.class, method = "selectPlanByPlanId")
     PlanResponseDto selectPlanByPlanId(Long planId);
+
+    @UpdateProvider(type = PlanProvider.class, method = "updatePlan")
+    void updatePlan(PlanSaveDto plan);
+
+    @DeleteProvider(type = PlanProvider.class, method = "deletePlan")
+    void deletePlan(Long planId);
+
+    @UpdateProvider(type = PlanProvider.class, method = "updateHit")
+    void updateHit(Long planId);
 }

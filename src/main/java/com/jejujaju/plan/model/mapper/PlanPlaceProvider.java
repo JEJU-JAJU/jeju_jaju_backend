@@ -23,4 +23,22 @@ public class PlanPlaceProvider {
             }
         }.toString();
     }
+
+    public String deletePlanPlaceByPlanPlaceId(){
+        return new SQL(){
+            {
+                DELETE_FROM("plan_place");
+                WHERE("plan_place_id = #{planPlaceId}");
+            }
+        }.toString();
+    }
+
+    public String deletePlanPlaceByPlanId(){
+        return new SQL(){
+            {
+                DELETE_FROM("plan_place");
+                WHERE("plan_id = #{planId}");
+            }
+        }.toString();
+    }
 }
