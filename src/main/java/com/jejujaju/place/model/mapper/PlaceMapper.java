@@ -28,4 +28,10 @@ public interface PlaceMapper {
     })
     @SelectProvider(type = PlaceProvider.class, method = "selectPlaceByPlaceId")
     PlaceResponseDto selectPlaceByPlaceId(Long placeId);
+
+    @UpdateProvider(type = PlaceProvider.class, method = "selectPlaceByPlaceId")
+    void updatePlace(PlaceRequestDto place);
+
+    @DeleteProvider(type = PlaceProvider.class, method = "deletePlace")
+    void deletePlace(Long placeId);
 }

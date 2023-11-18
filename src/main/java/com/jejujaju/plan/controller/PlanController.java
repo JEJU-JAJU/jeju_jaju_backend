@@ -1,9 +1,9 @@
 package com.jejujaju.plan.controller;
 
 import com.jejujaju.place.model.dto.PlaceRequestDto;
-import com.jejujaju.place.model.service.PlaceService;
-import com.jejujaju.plan.model.dto.*;
-import com.jejujaju.plan.model.service.PlanPlaceService;
+import com.jejujaju.plan.model.dto.PlanRequestDto;
+import com.jejujaju.plan.model.dto.PlanResponseDto;
+import com.jejujaju.plan.model.dto.PlanSaveDto;
 import com.jejujaju.plan.model.service.PlanService;
 import com.jejujaju.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class PlanController {
     private final PlanService planService;
 
     @PostMapping
-    public ResponseEntity<?> savePlan(@AuthenticationPrincipal User user, @RequestBody PlanRequestDto plan){
+    public ResponseEntity<Void> savePlan(@AuthenticationPrincipal User user, @RequestBody PlanRequestDto plan){
         PlanSaveDto newPlan = PlanSaveDto.builder()
                 .title(plan.getTitle())
                 .userId(user.getUserId())
@@ -36,8 +36,28 @@ public class PlanController {
     }
 
     @GetMapping("/{plan-id}")
-    public ResponseEntity<?> findPlan(@PathVariable("plan-id") Long planId){
+    public ResponseEntity<PlanResponseDto> findPlan(@PathVariable("plan-id") Long planId){
         PlanResponseDto plan = planService.findPlanByPlanId(planId);
-        return new ResponseEntity<PlanResponseDto>(plan,HttpStatus.OK);
+        return new ResponseEntity<PlanResponseDto>(plan, HttpStatus.OK);
+    }
+
+    @PutMapping("/{plan-id}")
+    public ResponseEntity<Void> updatePlan(@PathVariable("plan-id") Long planId, @RequestBody PlanRequestDto plan){
+        PlanSaveDto newPlan = PlanSaveDto.builder()
+                .planId(planId)
+                .title(plan.getTitle())
+                .description(plan.getDescription())
+                .build();
+
+        List<PlaceRequestDto> placeList = plan.getPlaceList();
+
+        planService.updatePlan(newPlan, placeList);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{plan-id}")
+    public ResponseEntity<Void> deletePlan(@PathVariable("plan-id") Long planId){
+        planService.deletePlan(planId);
+        return ResponseEntity.ok().build();
     }
 }

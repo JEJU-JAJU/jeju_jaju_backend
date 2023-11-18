@@ -25,4 +25,22 @@ public class PlaceProvider {
         }.toString();
     }
 
+    public String updatePlace(){
+        return new SQL(){
+            {
+                UPDATE("place");
+                SET("description = #{description}");
+                WHERE("place_id = #{place_id}");
+            }
+        }.toString();
+    }
+
+    public String deletePlace(){
+        return new SQL(){
+            {
+                DELETE_FROM("place");
+                WHERE("place_id = #{placeId}");
+            }
+        }.toString();
+    }
 }

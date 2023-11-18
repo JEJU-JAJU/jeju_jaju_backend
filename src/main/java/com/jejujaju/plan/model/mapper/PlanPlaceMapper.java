@@ -22,4 +22,10 @@ public interface PlanPlaceMapper {
     })
     @SelectProvider(type = PlanPlaceProvider.class, method = "selectPlanPlaceByPlanId")
     List<PlanPlaceResponseDto> selectPlanPlaceByPlanId(Long planId);
+
+    @DeleteProvider(type = PlanPlaceProvider.class, method = "deletePlanPlaceByPlanPlaceId")
+    void deletePlanPlaceByPlanPlaceId(Long planPlaceId);
+
+    @DeleteProvider(type = PlanPlaceProvider.class, method = "deletePlanPlaceByPlanId")
+    void deletePlanPlaceByPlanId(Long planId);
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface PlanService {
     void savePlan(PlanSaveDto plan, List<PlaceRequestDto> placeList);
     PlanResponseDto findPlanByPlanId(Long planId);
+    void updatePlan(PlanSaveDto plan, List<PlaceRequestDto> placeList);
+    void deletePlan(Long planId);
 }
