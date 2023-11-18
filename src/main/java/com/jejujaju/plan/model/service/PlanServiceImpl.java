@@ -36,6 +36,16 @@ public class PlanServiceImpl implements PlanService{
     }
 
     @Override
+    public List<PlanResponseDto> findPlanByUserId(Long userId) {
+        return planMapper.selectPlanByUserId(userId);
+    }
+
+    @Override
+    public List<PlanResponseDto> findAllPlan() {
+        return planMapper.selectAllPlan();
+    }
+
+    @Override
     public void updatePlan(PlanSaveDto plan, List<PlaceRequestDto> placeList) {
         planMapper.updatePlan(plan);
         deletePlaceWithPlanPlace(plan.getPlanId());

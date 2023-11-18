@@ -38,7 +38,19 @@ public class PlanController {
     @GetMapping("/{plan-id}")
     public ResponseEntity<PlanResponseDto> findPlan(@PathVariable("plan-id") Long planId){
         PlanResponseDto plan = planService.findPlanByPlanId(planId);
-        return new ResponseEntity<PlanResponseDto>(plan, HttpStatus.OK);
+        return new ResponseEntity<>(plan, HttpStatus.OK);
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<PlanResponseDto>> findMyPlan(@AuthenticationPrincipal User user){
+        List<PlanResponseDto> planList = planService.findPlanByUserId(user.getUserId());
+        return new ResponseEntity<>(planList, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlanResponseDto>> findAllPlan(){
+        List<PlanResponseDto> planList = planService.findAllPlan();
+        return new ResponseEntity<>(planList, HttpStatus.OK);
     }
 
     @PutMapping("/{plan-id}")
