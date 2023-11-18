@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.*;
 public interface CategoryMapper {
 
     @Results(id = "categoryMap", value = {
-            @Result(property = "categoryId", column = "category_id"),
             @Result(property = "code", column = "code"),
             @Result(property = "name", column = "name")
     })
