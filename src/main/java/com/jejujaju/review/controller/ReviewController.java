@@ -15,12 +15,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/plans/{plan-id}/reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping
+    @PostMapping("/plans/{plan-id}/reviews")
     public ResponseEntity<Void> saveReview(@AuthenticationPrincipal User user, @PathVariable("plan-id") Long planId,
                                            @RequestBody ReviewRequestDto review) {
         ReviewSaveDto newReview = ReviewSaveDto.builder()
@@ -33,15 +32,21 @@ public class ReviewController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{review-id}")
+    @GetMapping("/reviews/{review-id}")
     public ResponseEntity<ReviewResponseDto> findReviewByReviewId(@PathVariable("review-id") Long reviewId){
         ReviewResponseDto review = reviewService.findReviewByReviewId(reviewId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/plans/{plan-id}/reviews")
     public ResponseEntity<List<ReviewResponseDto>> findReviewByPlanId(@PathVariable("plan-id") Long planId){
         List<ReviewResponseDto> reviewList = reviewService.findReviewByPlanId(planId);
+        return new ResponseEntity<>(reviewList, HttpStatus.OK);
+    }
+
+    @GetMapping("/reviews/my")
+    public ResponseEntity<List<ReviewResponseDto>> findReviewByUserId(@AuthenticationPrincipal User user){
+        List<ReviewResponseDto> reviewList = reviewService.findReviewByUserId(user.getUserId());
         return new ResponseEntity<>(reviewList, HttpStatus.OK);
     }
 }

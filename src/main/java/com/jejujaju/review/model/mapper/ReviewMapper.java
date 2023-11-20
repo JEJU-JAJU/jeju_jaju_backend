@@ -28,4 +28,8 @@ public interface ReviewMapper {
     @ResultMap("reviewMap")
     @SelectProvider(type = ReviewProvider.class, method = "selectReviewByPlanId")
     List<ReviewResponseDto> selectReviewByPlanId(Long planId);
+
+    @ResultMap("reviewMap")
+    @SelectProvider(type = ReviewProvider.class, method = "selectReviewByUserId")
+    List<ReviewResponseDto> selectReviewByUserId(Long userId);
 }

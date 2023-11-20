@@ -53,4 +53,9 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewResponseDto> findReviewByPlanId(Long planId) {
         return reviewMapper.selectReviewByPlanId(planId);
     }
+
+    @Override
+    public List<ReviewResponseDto> findReviewByUserId(Long userId) {
+        return reviewMapper.selectReviewByUserId(userId);
+    }
 }

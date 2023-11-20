@@ -33,4 +33,14 @@ public class ReviewProvider {
             }
         }.toString();
     }
+
+    public String selectReviewByUserId(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("review");
+                WHERE("user_id = #{userId}");
+            }
+        }.toString();
+    }
 }

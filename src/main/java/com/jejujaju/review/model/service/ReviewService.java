@@ -10,4 +10,5 @@ public interface ReviewService {
     void saveReview(ReviewSaveDto review, List<ReviewDetailRequestDto> reviewDetail);
     ReviewResponseDto findReviewByReviewId(Long reviewId);
     List<ReviewResponseDto> findReviewByPlanId(Long planId);
+    List<ReviewResponseDto> findReviewByUserId(Long userId);
 }
