@@ -23,12 +23,13 @@ public class User implements UserDetails {
     private String password;
     private String email;
     private String phone;
+    private String authority;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority(this.authority));
     }
 
     @Override
