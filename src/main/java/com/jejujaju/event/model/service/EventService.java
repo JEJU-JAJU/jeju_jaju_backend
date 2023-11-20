@@ -8,4 +8,6 @@ public interface EventService {
     void saveEvent(Event event);
     List<Event> findAllEvent();
     Event findEventByEventId(Long eventId);
+    void modifyEvent(Event event);
+    void deleteEvent(Long eventId);
 }

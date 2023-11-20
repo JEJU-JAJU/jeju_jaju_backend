@@ -29,4 +29,14 @@ public class EventServiceImpl implements EventService{
     public Event findEventByEventId(Long eventId) {
         return eventMapper.selectEventByEventId(eventId);
     }
+
+    @Override
+    public void modifyEvent(Event event) {
+        eventMapper.updateEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Long eventId) {
+        eventMapper.deleteEvent(eventId);
+    }
 }

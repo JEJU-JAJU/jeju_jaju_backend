@@ -8,8 +8,7 @@ import java.util.List;
 @Mapper
 public interface EventMapper {
 
-    @Insert("INSERT INTO event (user_id, plan_id, start_date, end_date, description, badge_img)" +
-            "VALUES (#{userId}, #{planId}, #{startDate}, #{endDate}, #{description}, #{badgeImg})")
+    @InsertProvider(type = EventProvider.class, method = "insertEvent")
     void insertEvent(Event event);
 
     @Results(id = "eventMap", value = {
@@ -23,10 +22,16 @@ public interface EventMapper {
         @Result(property = "createdAt", column = "created_at"),
         @Result(property = "updatedAt", column = "updated_at"),
     })
-    @Select("SELECT * FROM event")
+    @SelectProvider(type = EventProvider.class, method = "selectEvent")
     List<Event> selectEvent();
 
     @ResultMap("eventMap")
-    @Select("SELECT * FROM event WHERE event_id = #{eventId}")
+    @SelectProvider(type = EventProvider.class, method = "selectEventByEventId")
     Event selectEventByEventId(Long eventId);
+
+    @UpdateProvider(type = EventProvider.class, method = "updateEvent")
+    void updateEvent(Event event);
+
+    @DeleteProvider(type = EventProvider.class, method = "deleteEvent")
+    void deleteEvent(Long eventId);
 }
