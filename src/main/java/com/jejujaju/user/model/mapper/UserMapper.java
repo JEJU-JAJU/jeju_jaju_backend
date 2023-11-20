@@ -30,6 +30,7 @@ public interface UserMapper {
             @Result(property = "password", column = "password"),
             @Result(property = "email", column = "email"),
             @Result(property = "phone", column = "phone"),
+            @Result(property = "authority", column = "authority"),
             @Result(property = "createdAt", column = "created_at"),
             @Result(property = "updatedAt", column = "updated_at"),
     })

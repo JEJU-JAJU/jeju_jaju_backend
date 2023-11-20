@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.GET, "/users").permitAll()
+                .antMatchers(HttpMethod.POST, "/events").hasRole("ADMIN")
                 .antMatchers("/refresh").permitAll()
                 .antMatchers("/**").authenticated()
                 .anyRequest().authenticated()
