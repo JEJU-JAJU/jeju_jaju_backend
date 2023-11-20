@@ -13,4 +13,24 @@ public class ReviewProvider {
             }
         }.toString();
     }
+
+    public String selectReviewByReviewId(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("review");
+                WHERE("review_id = #{reviewId}");
+            }
+        }.toString();
+    }
+
+    public String selectReviewByPlanId(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("review");
+                WHERE("plan_id = #{planId}");
+            }
+        }.toString();
+    }
 }

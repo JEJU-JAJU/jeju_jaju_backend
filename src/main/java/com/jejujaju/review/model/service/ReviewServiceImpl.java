@@ -1,9 +1,6 @@
 package com.jejujaju.review.model.service;
 
-import com.jejujaju.review.model.dto.ReviewDetailRequestDto;
-import com.jejujaju.review.model.dto.ReviewDetailSaveDto;
-import com.jejujaju.review.model.dto.ReviewDetailTagSaveDto;
-import com.jejujaju.review.model.dto.ReviewSaveDto;
+import com.jejujaju.review.model.dto.*;
 import com.jejujaju.review.model.mapper.ReviewDetailMapper;
 import com.jejujaju.review.model.mapper.ReviewDetailTagMapper;
 import com.jejujaju.review.model.mapper.ReviewMapper;
@@ -45,5 +42,15 @@ public class ReviewServiceImpl implements ReviewService {
                 );
             }
         }
+    }
+
+    @Override
+    public ReviewResponseDto findReviewByReviewId(Long reviewId) {
+        return reviewMapper.selectReviewByReviewId(reviewId);
+    }
+
+    @Override
+    public List<ReviewResponseDto> findReviewByPlanId(Long planId) {
+        return reviewMapper.selectReviewByPlanId(planId);
     }
 }

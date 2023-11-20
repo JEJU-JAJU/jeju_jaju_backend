@@ -12,4 +12,14 @@ public class ReviewDetailTagProvider {
             }
         }.toString();
     }
+
+    public String selectReviewDetailTagByReviewDetailId(){
+        return new SQL(){
+            {
+                SELECT("*");
+                FROM("review_detail_tag");
+                WHERE("review_detail_id = #{reviewDetailId}");
+            }
+        }.toString();
+    }
 }
