@@ -21,6 +21,8 @@ public interface ReviewMapper {
             @Result(property = "description", column = "description"),
             @Result(property = "reviewDetailList", column = "review_id",
                     many = @Many(select = "com.jejujaju.review.model.mapper.ReviewDetailMapper.selectReviewDetailByReviewId")),
+            @Result(property = "createdAt", column = "created_at"),
+            @Result(property = "updatedAt", column = "updated_at"),
     })
     @SelectProvider(type = ReviewProvider.class, method = "selectReviewByReviewId")
     ReviewResponseDto selectReviewByReviewId(Long reviewId);

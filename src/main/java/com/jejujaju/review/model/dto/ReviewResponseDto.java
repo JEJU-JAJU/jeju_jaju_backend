@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -18,4 +19,6 @@ public class ReviewResponseDto {
     private UserBasicDto user;
     private String description;
     private List<ReviewDetailResponseDto> reviewDetailList;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }
