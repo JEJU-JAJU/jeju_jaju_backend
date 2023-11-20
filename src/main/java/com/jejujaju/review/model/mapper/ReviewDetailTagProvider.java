@@ -22,4 +22,13 @@ public class ReviewDetailTagProvider {
             }
         }.toString();
     }
+
+    public String deleteReviewDetailTagByReviewDetailId(){
+        return new SQL(){
+            {
+                DELETE_FROM("review_detail_tag");
+                WHERE("review_detail_id = #{reviewDetailId}");
+            }
+        }.toString();
+    }
 }

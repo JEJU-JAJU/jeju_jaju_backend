@@ -22,4 +22,7 @@ public interface ReviewDetailMapper {
     })
     @SelectProvider(type = ReviewDetailProvider.class, method = "selectReviewDetailByReviewId")
     List<ReviewDetailResponseDto> selectReviewDetailByReviewId(Long reviewId);
+
+    @DeleteProvider(type = ReviewDetailProvider.class, method = "deleteReviewDetailByReviewId")
+    void deleteReviewDetailByReviewId(Long reviewId);
 }

@@ -11,4 +11,6 @@ public interface ReviewService {
     ReviewResponseDto findReviewByReviewId(Long reviewId);
     List<ReviewResponseDto> findReviewByPlanId(Long planId);
     List<ReviewResponseDto> findReviewByUserId(Long userId);
+    void modifyReview(ReviewSaveDto review, List<ReviewDetailRequestDto> reviewDetail);
+    void deleteReview(Long reviewId);
 }

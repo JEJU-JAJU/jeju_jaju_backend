@@ -32,4 +32,10 @@ public interface ReviewMapper {
     @ResultMap("reviewMap")
     @SelectProvider(type = ReviewProvider.class, method = "selectReviewByUserId")
     List<ReviewResponseDto> selectReviewByUserId(Long userId);
+
+    @UpdateProvider(type = ReviewProvider.class, method = "updateReviewDescription")
+    void updateReviewDescription(ReviewSaveDto review);
+
+    @DeleteProvider(type = ReviewProvider.class, method = "deleteReview")
+    void deleteReview(Long reviewId);
 }

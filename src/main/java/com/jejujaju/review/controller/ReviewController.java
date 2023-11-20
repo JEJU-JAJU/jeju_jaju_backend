@@ -49,4 +49,21 @@ public class ReviewController {
         List<ReviewResponseDto> reviewList = reviewService.findReviewByUserId(user.getUserId());
         return new ResponseEntity<>(reviewList, HttpStatus.OK);
     }
+
+    @PutMapping("/reviews/{review-id}")
+    public ResponseEntity<Void> modifyReview(@PathVariable("review-id") Long reviewId, @RequestBody ReviewRequestDto review){
+        ReviewSaveDto newReview = ReviewSaveDto.builder()
+                .reviewId(reviewId)
+                .description(review.getDescription())
+                .build();
+        reviewService.modifyReview(newReview, review.getReviewDetailList());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/reviews/{review-id}")
+    public ResponseEntity<Void> modifyReview(@PathVariable("review-id") Long reviewId){
+        reviewService.deleteReview(reviewId);
+        return ResponseEntity.ok().build();
+    }
+
 }

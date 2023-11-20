@@ -23,11 +23,42 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void saveReview(ReviewSaveDto review, List<ReviewDetailRequestDto> reviewDetail) {
         reviewMapper.insertReview(review);
+        saveReviewDetail(review.getReviewId(), reviewDetail);
+    }
 
+    @Override
+    public ReviewResponseDto findReviewByReviewId(Long reviewId) {
+        return reviewMapper.selectReviewByReviewId(reviewId);
+    }
+
+    @Override
+    public List<ReviewResponseDto> findReviewByPlanId(Long planId) {
+        return reviewMapper.selectReviewByPlanId(planId);
+    }
+
+    @Override
+    public List<ReviewResponseDto> findReviewByUserId(Long userId) {
+        return reviewMapper.selectReviewByUserId(userId);
+    }
+
+    @Override
+    public void modifyReview(ReviewSaveDto review, List<ReviewDetailRequestDto> reviewDetail) {
+        reviewMapper.updateReviewDescription(review);
+        deleteReviewDetail(review.getReviewId());
+        saveReviewDetail(review.getReviewId(), reviewDetail);
+    }
+
+    @Override
+    public void deleteReview(Long reviewId) {
+        deleteReviewDetail(reviewId);
+        reviewMapper.deleteReview(reviewId);
+    }
+
+    public void saveReviewDetail(Long reviewId, List<ReviewDetailRequestDto> reviewDetail){
         int nth = 0;
         for (ReviewDetailRequestDto reviewDetailDto : reviewDetail) {
             ReviewDetailSaveDto newReviewDetail = ReviewDetailSaveDto.builder()
-                    .reviewId(review.getReviewId())
+                    .reviewId(reviewId)
                     .placeId(reviewDetailDto.getPlaceId())
                     .nth((long) ++nth)
                     .build();
@@ -44,18 +75,11 @@ public class ReviewServiceImpl implements ReviewService {
         }
     }
 
-    @Override
-    public ReviewResponseDto findReviewByReviewId(Long reviewId) {
-        return reviewMapper.selectReviewByReviewId(reviewId);
-    }
-
-    @Override
-    public List<ReviewResponseDto> findReviewByPlanId(Long planId) {
-        return reviewMapper.selectReviewByPlanId(planId);
-    }
-
-    @Override
-    public List<ReviewResponseDto> findReviewByUserId(Long userId) {
-        return reviewMapper.selectReviewByUserId(userId);
+    public void deleteReviewDetail(Long reviewId){
+        ReviewResponseDto reviewResponseDto = reviewMapper.selectReviewByReviewId(reviewId);
+        for(ReviewDetailResponseDto reviewDetail : reviewResponseDto.getReviewDetailList()){
+            reviewDetailTagMapper.deleteReviewDetailTagByReviewDetailId(reviewDetail.getReviewDetailId());
+        }
+        reviewDetailMapper.deleteReviewDetailByReviewId(reviewId);
     }
 }

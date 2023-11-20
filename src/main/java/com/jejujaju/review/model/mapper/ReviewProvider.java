@@ -43,4 +43,23 @@ public class ReviewProvider {
             }
         }.toString();
     }
+
+    public String updateReviewDescription(){
+        return new SQL(){
+            {
+                UPDATE("review");
+                SET("description = #{description}");
+                WHERE("review_id = #{reviewId}");
+            }
+        }.toString();
+    }
+
+    public String deleteReview(){
+        return new SQL(){
+            {
+                DELETE_FROM("review");
+                WHERE("review_id = #{reviewId}");
+            }
+        }.toString();
+    }
 }

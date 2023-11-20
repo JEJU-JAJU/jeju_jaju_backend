@@ -18,4 +18,7 @@ public interface ReviewDetailTagMapper {
     })
     @SelectProvider(type = ReviewDetailTagProvider.class, method = "selectReviewDetailTagByReviewDetailId")
     ReviewDetailTagResponseDto selectReviewDetailTagByReviewDetailId(Long reviewDetailId);
+
+    @DeleteProvider(type = ReviewDetailTagProvider.class, method = "deleteReviewDetailTagByReviewDetailId")
+    void deleteReviewDetailTagByReviewDetailId(Long reviewDetailId);
 }
