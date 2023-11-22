@@ -59,4 +59,9 @@ public class EventServiceImpl implements EventService{
     public void deleteEvent(Long eventId) {
         eventMapper.deleteEvent(eventId);
     }
+
+    @Override
+    public List<EventBadgeDto> findBadgesByUserId(Long userId) {
+        return eventMapper.selectBadgesByUserId(userId);
+    }
 }

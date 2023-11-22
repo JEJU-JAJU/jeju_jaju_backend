@@ -1,6 +1,7 @@
 package com.jejujaju.event.model.mapper;
 
 import com.jejujaju.event.model.dto.Event;
+import com.jejujaju.event.model.dto.EventBadgeDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -35,4 +36,14 @@ public interface EventMapper {
 
     @DeleteProvider(type = EventProvider.class, method = "deleteEvent")
     void deleteEvent(Long eventId);
+
+    @Results({
+            @Result(property = "eventId", column = "event_id"),
+            @Result(property = "description", column = "description"),
+            @Result(property = "badgeImg", column = "badge_img")
+    })
+    @Select("SELECT e.event_id, e.description, e.badge_img " +
+            "FROM event AS e JOIN (SELECT * FROM review WHERE user_id = #{userId}) AS r ON e.plan_id = r.plan_id " +
+            "WHERE r.created_at BETWEEN e.start_date AND e.end_date")
+    List<EventBadgeDto> selectBadgesByUserId(Long userId);
 }
