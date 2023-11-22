@@ -1,6 +1,7 @@
 package com.jejujaju.event.model.service;
 
 import com.jejujaju.event.model.dto.Event;
+import com.jejujaju.event.model.dto.EventBadgeDto;
 import com.jejujaju.event.model.dto.EventImg;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,4 +15,5 @@ public interface EventService {
     List<EventImg> findEventImgByEventId(Long eventId) throws IOException;
     void modifyEvent(Event event);
     void deleteEvent(Long eventId);
+    List<EventBadgeDto> findBadgesByUserId(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.jejujaju.event.controller;
 
 import com.jejujaju.event.model.dto.Event;
+import com.jejujaju.event.model.dto.EventBadgeDto;
 import com.jejujaju.event.model.dto.EventImg;
 import com.jejujaju.event.model.dto.EventResponseDto;
 import com.jejujaju.event.model.service.EventService;
@@ -70,5 +71,11 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable("event-id") Long eventId) {
         eventService.deleteEvent(eventId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/badges/my")
+    public ResponseEntity<List<EventBadgeDto>> findBadgesByUserId(@AuthenticationPrincipal User user){
+        List<EventBadgeDto> badgeList = eventService.findBadgesByUserId(user.getUserId());
+        return new ResponseEntity<>(badgeList, HttpStatus.OK);
     }
 }
