@@ -26,7 +26,7 @@ public class EventController {
     public ResponseEntity<?> saveEvent(@AuthenticationPrincipal User user,
                                        @RequestParam("planId") Long planId,
                                        @RequestParam("startDate") String startDate,
-                                       @RequestParam("startDate") String endDate,
+                                       @RequestParam("endDate") String endDate,
                                        @RequestParam("description") String description,
                                        @RequestParam("badgeImg") String badgeImg,
                                        @RequestParam("files") List<MultipartFile> files) throws Exception {
