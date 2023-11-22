@@ -1,6 +1,7 @@
 package com.jejujaju.user.model.service;
 
 import com.jejujaju.user.model.dto.User;
+import com.jejujaju.user.model.dto.UserBasicDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {
@@ -15,4 +16,6 @@ public interface UserService extends UserDetailsService {
     void deleteUser(Long userId);
 
     boolean isExistLoginId(String loginId);
+
+    UserBasicDto findUserByUserId(Long userId);
 }
