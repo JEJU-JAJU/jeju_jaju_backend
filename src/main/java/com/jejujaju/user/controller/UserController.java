@@ -4,6 +4,7 @@ import com.jejujaju.user.model.dto.User;
 import com.jejujaju.user.model.dto.UserBasicDto;
 import com.jejujaju.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -62,13 +63,8 @@ public class UserController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<?> findUser(@AuthenticationPrincipal User user) {
-        UserBasicDto userInfo = UserBasicDto.builder().userId(user.getUserId())
-                .loginId(user.getLoginId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .phone(user.getPhone())
-                .build();
-        return ResponseEntity.ok(userInfo);
+    public ResponseEntity<UserBasicDto> findUser(@AuthenticationPrincipal User user) {
+        UserBasicDto userBasicDto = userService.findUserByUserId(user.getUserId());
+        return new ResponseEntity<>(userBasicDto, HttpStatus.OK);
     }
 }

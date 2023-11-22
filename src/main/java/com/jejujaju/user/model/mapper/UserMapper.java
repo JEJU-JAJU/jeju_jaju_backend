@@ -19,6 +19,7 @@ public interface UserMapper {
             @Result(property = "name", column = "name"),
             @Result(property = "email", column = "email"),
             @Result(property = "phone", column = "phone"),
+            @Result(property = "authority", column = "authority"),
     })
     @SelectProvider(type = UserMapperProvider.class, method = "selectUserByUserId")
     UserBasicDto selectUserByUserId(Long userId);

@@ -1,6 +1,7 @@
 package com.jejujaju.user.model.service;
 
 import com.jejujaju.user.model.dto.User;
+import com.jejujaju.user.model.dto.UserBasicDto;
 import com.jejujaju.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +51,11 @@ public class UserServiceImpl implements UserService {
     public boolean isExistLoginId(String loginId) {
         User user = userMapper.selectUserByLoginId(loginId);
         return user != null;
+    }
+
+    @Override
+    public UserBasicDto findUserByUserId(Long userId) {
+        return userMapper.selectUserByUserId(userId);
     }
 
     @Override
