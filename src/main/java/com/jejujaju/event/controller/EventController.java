@@ -2,12 +2,8 @@ package com.jejujaju.event.controller;
 
 import com.jejujaju.event.model.dto.Event;
 import com.jejujaju.event.model.dto.EventImg;
-import com.jejujaju.event.model.dto.EventImgResponseDto;
 import com.jejujaju.event.model.dto.EventResponseDto;
 import com.jejujaju.event.model.service.EventService;
-import com.jejujaju.review.model.dto.ReviewRequestDto;
-import com.jejujaju.review.model.dto.ReviewResponseDto;
-import com.jejujaju.review.model.dto.ReviewSaveDto;
 import com.jejujaju.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,7 +50,7 @@ public class EventController {
     @GetMapping("/{event-id}")
     public ResponseEntity<EventResponseDto> findEventByEventId(@PathVariable("event-id") Long eventId) throws Exception {
         Event event = eventService.findEventByEventId(eventId);
-        List<EventImgResponseDto> eventImgList = eventService.findEventImgByEventId(eventId);
+        List<EventImg> eventImgList = eventService.findEventImgByEventId(eventId);
         return new ResponseEntity<>(EventResponseDto.builder().event(event).eventImgList(eventImgList).build(), HttpStatus.OK);
     }
 

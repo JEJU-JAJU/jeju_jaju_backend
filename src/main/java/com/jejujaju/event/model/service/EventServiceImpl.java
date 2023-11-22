@@ -46,17 +46,8 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public List<EventImgResponseDto> findEventImgByEventId(Long eventId) throws IOException {
-        List<EventImg> imgList = eventImgMapper.selectEventByEventId(eventId);
-        List<EventImgResponseDto> eventImgList = new ArrayList<>();
-        for(EventImg img : imgList){
-            EventImgResponseDto eventImg = EventImgResponseDto.builder()
-                                    .originalFileName(img.getOriginalFileName())
-                                    .imageData(readImageData(img.getStoredFilePath()))
-                                    .build();
-            eventImgList.add(eventImg);
-        }
-        return eventImgList;
+    public List<EventImg> findEventImgByEventId(Long eventId) throws IOException {
+        return eventImgMapper.selectEventByEventId(eventId);
     }
 
     @Override
@@ -67,11 +58,5 @@ public class EventServiceImpl implements EventService{
     @Override
     public void deleteEvent(Long eventId) {
         eventMapper.deleteEvent(eventId);
-    }
-
-    private byte[] readImageData(String path) throws IOException {
-        // 이미지 파일 경로 설정 (실제로는 여러 방법으로 이미지를 읽어올 수 있음)
-        Path imagePath = Paths.get(path);
-        return Files.readAllBytes(imagePath);
     }
 }

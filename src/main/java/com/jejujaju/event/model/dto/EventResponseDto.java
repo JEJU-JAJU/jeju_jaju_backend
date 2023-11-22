@@ -13,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 public class EventResponseDto {
     private Event event;
-    private List<EventImgResponseDto> eventImgList;
+    private List<EventImg> eventImgList;
 }
