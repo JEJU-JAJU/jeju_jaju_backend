@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -27,14 +29,17 @@ public class EventController {
                                        @RequestParam("planId") Long planId,
                                        @RequestParam("startDate") String startDate,
                                        @RequestParam("endDate") String endDate,
-                                       @RequestParam("description") String description,
-                                       @RequestParam("badgeImg") String badgeImg,
-                                       @RequestParam("files") List<MultipartFile> files) throws Exception {
+                                       @RequestParam(value = "description", required = false) String description,
+                                       @RequestParam(value = "badgeImg", required = false) String badgeImg,
+                                       @RequestParam(value = "files", required = false) List<MultipartFile> files) throws Exception {
+
+        Timestamp start = Timestamp.valueOf(LocalDateTime.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        Timestamp end = Timestamp.valueOf(LocalDateTime.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         Event event = Event.builder().userId(user.getUserId())
                 .planId(planId)
-                .startDate(Timestamp.valueOf(startDate))
-                .endDate(Timestamp.valueOf(endDate))
+                .startDate(start)
+                .endDate(end)
                 .description(description)
                 .badgeImg(badgeImg).build();
         eventService.saveEvent(event, files);

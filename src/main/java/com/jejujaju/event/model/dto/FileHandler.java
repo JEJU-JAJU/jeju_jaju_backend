@@ -17,7 +17,7 @@ public class FileHandler {
     public List<EventImg> parseFileInfo(Long eventId, List<MultipartFile> multipartFiles) throws IOException {
         List<EventImg> fileList = new ArrayList<>();
 
-        if(multipartFiles.isEmpty()) return fileList;
+        if(multipartFiles == null || multipartFiles.isEmpty()) return fileList;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String current_date = simpleDateFormat.format(new Date());
