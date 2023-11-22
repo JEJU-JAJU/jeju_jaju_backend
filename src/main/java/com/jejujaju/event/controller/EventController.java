@@ -6,6 +6,7 @@ import com.jejujaju.event.model.dto.EventImg;
 import com.jejujaju.event.model.dto.EventResponseDto;
 import com.jejujaju.event.model.service.EventService;
 import com.jejujaju.user.model.dto.User;
+import com.jejujaju.util.DateFormatter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -24,25 +22,25 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+    private final DateFormatter dateFormatter;
 
     @PostMapping
     public ResponseEntity<?> saveEvent(@AuthenticationPrincipal User user,
                                        @RequestParam("planId") Long planId,
                                        @RequestParam("startDate") String startDate,
                                        @RequestParam("endDate") String endDate,
-                                       @RequestParam(value = "description", required = false) String description,
-                                       @RequestParam(value = "badgeImg", required = false) String badgeImg,
-                                       @RequestParam(value = "files", required = false) List<MultipartFile> files) throws Exception {
+                                       @RequestParam(value = "description") String description,
+                                       @RequestParam(value = "badgeImg") String badgeImg,
+                                       @RequestParam(value = "files") List<MultipartFile> files) throws Exception {
 
-        Timestamp start = Timestamp.valueOf(LocalDateTime.parse(startDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        Timestamp end = Timestamp.valueOf(LocalDateTime.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-
-        Event event = Event.builder().userId(user.getUserId())
+        Event event = Event.builder()
+                .userId(user.getUserId())
                 .planId(planId)
-                .startDate(start)
-                .endDate(end)
+                .startDate(dateFormatter.StringToTimestamp(startDate))
+                .endDate(dateFormatter.StringToTimestamp(endDate))
                 .description(description)
-                .badgeImg(badgeImg).build();
+                .badgeImg(badgeImg)
+                .build();
         eventService.saveEvent(event, files);
         return ResponseEntity.ok().build();
     }
@@ -61,9 +59,20 @@ public class EventController {
     }
 
     @PutMapping("/{event-id}")
-    public ResponseEntity<Void> modifyEvent(@PathVariable("event-id") Long eventId, @RequestBody Event event) {
-        event.setEventId(eventId);
-        eventService.modifyEvent(event);
+    public ResponseEntity<Void> modifyEvent(@PathVariable("event-id") Long eventId,
+                                            @RequestParam(value = "startDate", required = false) String startDate,
+                                            @RequestParam(value = "endDate", required = false) String endDate,
+                                            @RequestParam(value = "description", required = false) String description,
+                                            @RequestParam(value = "badgeImg", required = false) String badgeImg,
+                                            @RequestParam(value = "files", required = false) List<MultipartFile> files) throws Exception {
+
+        Event event = Event.builder().eventId(eventId).build();
+        if(startDate != null) event.setStartDate(dateFormatter.StringToTimestamp(startDate));
+        if(endDate != null) event.setEndDate(dateFormatter.StringToTimestamp(endDate));
+        if(description != null) event.setDescription(description);
+        if(badgeImg != null) event.setBadgeImg(badgeImg);
+
+        eventService.modifyEvent(event, files);
         return ResponseEntity.ok().build();
     }
 
