@@ -9,6 +9,7 @@ import java.util.List;
 public interface EventMapper {
 
     @InsertProvider(type = EventProvider.class, method = "insertEvent")
+    @Options(useGeneratedKeys = true, keyProperty = "eventId")
     void insertEvent(Event event);
 
     @Results(id = "eventMap", value = {

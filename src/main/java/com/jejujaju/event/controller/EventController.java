@@ -1,6 +1,9 @@
 package com.jejujaju.event.controller;
 
 import com.jejujaju.event.model.dto.Event;
+import com.jejujaju.event.model.dto.EventImg;
+import com.jejujaju.event.model.dto.EventImgResponseDto;
+import com.jejujaju.event.model.dto.EventResponseDto;
 import com.jejujaju.event.model.service.EventService;
 import com.jejujaju.review.model.dto.ReviewRequestDto;
 import com.jejujaju.review.model.dto.ReviewResponseDto;
@@ -11,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -22,9 +27,21 @@ public class EventController {
     private final EventService eventService;
 
     @PostMapping
-    public ResponseEntity<Void> saveEvent(@AuthenticationPrincipal User user, @RequestBody Event event) {
-        event.setUserId(user.getUserId());
-        eventService.saveEvent(event);
+    public ResponseEntity<?> saveEvent(@AuthenticationPrincipal User user,
+                                       @RequestParam("planId") Long planId,
+                                       @RequestParam("startDate") String startDate,
+                                       @RequestParam("startDate") String endDate,
+                                       @RequestParam("description") String description,
+                                       @RequestParam("badgeImg") String badgeImg,
+                                       @RequestParam("files") List<MultipartFile> files) throws Exception {
+
+        Event event = Event.builder().userId(user.getUserId())
+                .planId(planId)
+                .startDate(Timestamp.valueOf(startDate))
+                .endDate(Timestamp.valueOf(endDate))
+                .description(description)
+                .badgeImg(badgeImg).build();
+        eventService.saveEvent(event, files);
         return ResponseEntity.ok().build();
     }
 
@@ -35,9 +52,10 @@ public class EventController {
     }
 
     @GetMapping("/{event-id}")
-    public ResponseEntity<Event> findEventByEventId(@PathVariable("event-id") Long eventId){
+    public ResponseEntity<EventResponseDto> findEventByEventId(@PathVariable("event-id") Long eventId) throws Exception {
         Event event = eventService.findEventByEventId(eventId);
-        return new ResponseEntity<>(event, HttpStatus.OK);
+        List<EventImgResponseDto> eventImgList = eventService.findEventImgByEventId(eventId);
+        return new ResponseEntity<>(EventResponseDto.builder().event(event).eventImgList(eventImgList).build(), HttpStatus.OK);
     }
 
     @PutMapping("/{event-id}")
