@@ -13,7 +13,7 @@ public interface EventService {
     List<Event> findAllEvent();
     Event findEventByEventId(Long eventId);
     List<EventImg> findEventImgByEventId(Long eventId) throws IOException;
-    void modifyEvent(Event event);
+    void modifyEvent(Event event, List<MultipartFile> files) throws IOException;
     void deleteEvent(Long eventId);
     List<EventBadgeDto> findBadgesByUserId(Long userId);
 }
