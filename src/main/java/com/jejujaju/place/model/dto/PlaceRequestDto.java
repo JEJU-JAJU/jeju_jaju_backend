@@ -14,6 +14,7 @@ public class PlaceRequestDto {
     private String name;
     private String description;
     private String addr;
+    private String addressName;
     private String phone;
     private String url;
     private String img;
