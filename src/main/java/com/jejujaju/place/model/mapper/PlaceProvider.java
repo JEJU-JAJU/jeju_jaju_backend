@@ -8,9 +8,9 @@ public class PlaceProvider {
         return new SQL(){
             {
                 INSERT_INTO("place");
-                INTO_COLUMNS("name", "description", "addr", "phone", "url", "img", "x", "y", "category_code");
-                INTO_VALUES("#{name}", "#{description}", "#{addr}", "#{phone}", "#{url}", "#{img}", "#{x}", "#{y}",
-                        "#{categoryCode}");
+                INTO_COLUMNS("name", "description", "addr", "address_name", "phone", "url", "img", "x", "y", "category_code");
+                INTO_VALUES("#{name}", "#{description}", "#{addr}", "#{addressName}", "#{phone}", "#{url}", "#{img}",
+                        "#{x}", "#{y}", "#{categoryCode}");
             }
         }.toString();
     }

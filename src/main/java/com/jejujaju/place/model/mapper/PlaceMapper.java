@@ -16,6 +16,7 @@ public interface PlaceMapper {
             @Result(property = "name", column = "name"),
             @Result(property = "description", column = "description"),
             @Result(property = "addr", column = "addr"),
+            @Result(property = "addressName", column = "address_name"),
             @Result(property = "phone", column = "phone"),
             @Result(property = "url", column = "url"),
             @Result(property = "img", column = "img"),
