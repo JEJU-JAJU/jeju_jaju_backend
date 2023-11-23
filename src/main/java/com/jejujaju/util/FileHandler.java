@@ -1,5 +1,6 @@
-package com.jejujaju.event.model.dto;
+package com.jejujaju.util;
 
+import com.jejujaju.event.model.dto.EventImg;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +25,8 @@ public class FileHandler {
 
         String absolutePath = new File("").getAbsolutePath() + "\\";
 
-        String path = "images/" + current_date;
+        String path = "src/main/resources/images/event/" + current_date;
+        String simplePath = "/images/event/" + current_date;
         File file = new File(path);
 
         if(!file.exists()){
@@ -58,7 +60,7 @@ public class FileHandler {
                 EventImg eventImg = EventImg.builder()
                         .eventId(eventId)
                         .originalFileName(multipartFile.getOriginalFilename())
-                        .storedFilePath(path + "/" + new_file_name)
+                        .storedFilePath(simplePath + "/" + new_file_name)
                         .fileSize(multipartFile.getSize())
                         .build();
                 fileList.add(eventImg);

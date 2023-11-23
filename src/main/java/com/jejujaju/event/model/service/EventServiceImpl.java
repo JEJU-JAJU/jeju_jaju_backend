@@ -1,6 +1,9 @@
 package com.jejujaju.event.model.service;
 
-import com.jejujaju.event.model.dto.*;
+import com.jejujaju.event.model.dto.Event;
+import com.jejujaju.event.model.dto.EventBadgeDto;
+import com.jejujaju.event.model.dto.EventImg;
+import com.jejujaju.util.FileHandler;
 import com.jejujaju.event.model.mapper.EventImgMapper;
 import com.jejujaju.event.model.mapper.EventMapper;
 import lombok.RequiredArgsConstructor;
@@ -9,10 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,12 +26,7 @@ public class EventServiceImpl implements EventService{
     @Override
     public void saveEvent(Event event, List<MultipartFile> files) throws IOException {
         eventMapper.insertEvent(event);
-        List<EventImg> list = fileHandler.parseFileInfo(event.getEventId(), files);
-
-        for(EventImg img : list){
-            img.setEventId(event.getEventId());
-            eventImgMapper.insertEventImg(img);
-        }
+        saveImg(event.getEventId(), files);
     }
 
     @Override
@@ -51,8 +45,12 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void modifyEvent(Event event) {
+    public void modifyEvent(Event event, List<MultipartFile> files) throws IOException {
         eventMapper.updateEvent(event);
+        if(files != null) {
+            eventImgMapper.deleteEventImgByEventId(event.getEventId());
+            saveImg(event.getEventId(), files);
+        }
     }
 
     @Override
@@ -63,5 +61,14 @@ public class EventServiceImpl implements EventService{
     @Override
     public List<EventBadgeDto> findBadgesByUserId(Long userId) {
         return eventMapper.selectBadgesByUserId(userId);
+    }
+
+    public void saveImg(Long eventId, List<MultipartFile> files) throws IOException{
+        List<EventImg> list = fileHandler.parseFileInfo(eventId, files);
+
+        for(EventImg img : list){
+            img.setEventId(eventId);
+            eventImgMapper.insertEventImg(img);
+        }
     }
 }

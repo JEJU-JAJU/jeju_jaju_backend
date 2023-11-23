@@ -21,4 +21,7 @@ public interface EventImgMapper {
     })
     @Select("SELECT * FROM event_img WHERE event_id = #{eventId}")
     List<EventImg> selectEventByEventId(Long eventId);
+
+    @Delete("DELETE FROM event_img WHERE event_id = #{eventId}")
+    void deleteEventImgByEventId(Long eventId);
 }
