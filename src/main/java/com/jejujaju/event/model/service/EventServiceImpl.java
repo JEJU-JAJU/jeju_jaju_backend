@@ -3,7 +3,7 @@ package com.jejujaju.event.model.service;
 import com.jejujaju.event.model.dto.Event;
 import com.jejujaju.event.model.dto.EventBadgeDto;
 import com.jejujaju.event.model.dto.EventImg;
-import com.jejujaju.event.model.dto.FileHandler;
+import com.jejujaju.util.FileHandler;
 import com.jejujaju.event.model.mapper.EventImgMapper;
 import com.jejujaju.event.model.mapper.EventMapper;
 import lombok.RequiredArgsConstructor;
