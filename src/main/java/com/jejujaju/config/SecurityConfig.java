@@ -1,6 +1,5 @@
 package com.jejujaju.config;
 
-import com.jejujaju.refreshtoken.service.RefreshTokenService;
 import com.jejujaju.security.*;
 import com.jejujaju.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -50,10 +49,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html/**", "/swagger-resources/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/users", "/plans/{plan-id}").permitAll()
-                .antMatchers(HttpMethod.POST, "/events").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/events/{event-id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/events/{event-id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users", "/events", "/plans/**").permitAll()
+                .antMatchers("/events/**").hasRole("ADMIN")
                 .antMatchers("/refresh").permitAll()
                 .antMatchers("/**").authenticated()
                 .anyRequest().authenticated()
