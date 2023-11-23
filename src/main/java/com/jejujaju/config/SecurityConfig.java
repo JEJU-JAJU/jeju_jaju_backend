@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html/**", "/swagger-resources/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login", "/users").permitAll()
-                .antMatchers(HttpMethod.GET, "/users", "/events", "/plans/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/users", "/events/**", "/plans/**").permitAll()
                 .antMatchers("/events/**").hasRole("ADMIN")
                 .antMatchers("/refresh").permitAll()
                 .antMatchers("/**").authenticated()
